@@ -13,9 +13,9 @@ services:
       MYSQL_PASSWORD : DB@123
 
   phonebook:
-    image: xampp/app
+    image: phonebook
     volumes:
-      - ./:/opt/lampp/htdocs
+      - ./:/usr/local/apache2/htdocs/
     restart: always
     depends_on:
       - dbos
