@@ -166,7 +166,7 @@ if(isset($flag) && $flag==0)
                                                 </div>
                                             </div>
                                             <?php
-                                            if(sizeof($emails)>0)
+                                            if(sizeof($emails)>=0)
                                             	echo '<div class="row form-group"><div class="col col-md-3">
                                                     <label for="text-input" class=" form-control-label">Emails   </label>
                                                 </div><div class="col col-md-9" id="emaillist">';
@@ -177,36 +177,40 @@ if(isset($flag) && $flag==0)
                                                         <i class="fa fa-envelope"></i>
                                                     </div>
                                                     <input type="email" id="email" name="email[]" value="<?php echo $value; ?>" placeholder="Email" class="form-control">
-                                                    <div class="input-group-addon" onclick="$(this).parent().remove();">
-                                                            <i class="fas fa-times"></i>
-                                                        </div>
+                                                    
                                                 </div>
                                             <?php
                                         	}
-                                        	if(sizeof($emails)>0)
+                                        	if(sizeof($emails)>=0)
                                         		echo '<center id="plusemail"><i class="fas fa-plus" onclick="addemail();"></i></center></div></div>';
                                         	?>
 
 
                                         	<?php
-                                            if(sizeof($phones)>0)
+                                            if(sizeof($phones)>=0)
                                             	echo '<div class="row form-group"><div class="col col-md-3">
                                                     <label for="text-input" class=" form-control-label">Phones   </label>
-                                                </div><div class="col col-md-9" id="phonelist">';
+                                                </div><div class="col col-md-9" id="phonelist"><div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-phone"></i>
+                                                    </div>
+                                                    <input type="text" id="phone" name="phone[]" value="'.$phones[0].'" placeholder="Phone" class="form-control">
+                                                    
+                                                </div>';
                                             	foreach ($phones as $key => $value) {
+                                            		if($key==0)
+                                            			continue;
                                             ?>
                                                 <div class="input-group">
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-phone"></i>
                                                     </div>
                                                     <input type="text" id="phone" name="phone[]" value="<?php echo $value; ?>" placeholder="Phone" class="form-control">
-                                                    <div class="input-group-addon" onclick="$(this).parent().remove();">
-                                                            <i class="fas fa-times"></i>
-                                                        </div>
+                                                    
                                                 </div>
                                             <?php
                                         	}
-                                        	if(sizeof($phones)>0)
+                                        	if(sizeof($phones)>=0)
                                         		echo '<center id="plusphone"><i class="fas fa-plus" onclick="addphone();"></i></center></div></div>';
                                         	?>
                                             
@@ -267,18 +271,42 @@ if(isset($flag) && $flag==0)
 <script>
 	$(document).ready(function(){
 $('#myTable').DataTable();
-  $("#myTable_filter").children('label').children('input').keyup(function(){
-  	var txt=$("#myTable_filter").children('label').children('input').val();
+  $("#myTable_filter").keyup(function(){
+  	var txt=$("#myTable_filter").val();
     $.ajax({url: "/functions/getcontact.php?search="+txt, success: function(result){
     $("#list_contact").html(result);
     $('#myTable').DataTable();
   }});
   });
   $("#myTable_filter").children('label').children('input').keyup();
+
+  $("#myTable_info").remove();
+  var sele=$('#myTable_length').children('label').children('select');
+  $('#myTable_length').children('label').remove();
+  var select=$('#myTable_paginate').html();
+  $('#myTable_paginate').html('');
+  $('#myTable_paginate').prepend('<div class="row" style="width:100%;" id="rwid"><div class="col-md-2" id="tmpid"></div></div>');
+  $('#tmpid').html(sele);
+  $('#rwid').append('<div class="col-md-10" id="selectid"></div>');
+  $('#selectid').html(select);
+
+  $('#myTable_filter').replaceWith(`<div class="input-group"><div class="input-group-btn"><button class="btn btn-primary"><i class="fa fa-search"></i> Search</button></div><input onkeyup="search($(this));" type="text" id="myTable_filter" name="input1-group2" placeholder="Name" class="form-control" aria-controls="myTable"></div>`);
 });
+
 </script>
 
 <script>
+
+function search(val)
+{
+	//alert($(val).val());
+	var txt=$(val).val();
+    $.ajax({url: "/functions/getcontact.php?search="+txt, success: function(result){
+    $("#list_contact").html(result);
+	}
+});
+}
+
 function on() {
   document.getElementById("overlay").style.display = "block";
 }

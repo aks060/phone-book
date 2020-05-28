@@ -14,10 +14,6 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 		{
 			echo '<script>alert("Success");</script>';
 		}
-		else
-		{
-			echo '<script>alert("Sorry Some error occured");</script>';
-		}
 	}
 }
 require_once($_SERVER['DOCUMENT_ROOT'].'/template/header.php');
@@ -58,9 +54,6 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/template/header.php');
                                                         <i class="fa fa-envelope"></i>
                                                     </div>
                                                     <input type="email" id="email" name="email[]" value="" placeholder="Email" class="form-control">
-                                                    <div class="input-group-addon" onclick="$(this).parent().remove();">
-                                                            <i class="fas fa-times"></i>
-                                                        </div>
                                                 </div>
                                             <center id="plusemail"><i class="fas fa-plus" onclick="addemail();"></i></center></div></div>
                                         	
@@ -73,10 +66,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/template/header.php');
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-phone"></i>
                                                     </div>
-                                                    <input type="text" id="phone" name="phone[]" value="" placeholder="Phone" class="form-control">
-                                                    <div class="input-group-addon" onclick="$(this).parent().remove();">
-                                                            <i class="fas fa-times"></i>
-                                                        </div>
+                                                    <input type="text" id="phone" name="phone[]" value="" placeholder="Phone" class="form-control" required="">
                                                 </div>
                                             <center id="plusphone"><i class="fas fa-plus" onclick="addphone();"></i></center></div></div>
                                         	
@@ -85,7 +75,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/template/header.php');
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-dot-circle-o"></i> Update
+                                            <i class="fa fa-dot-circle-o"></i> Save
                                         </button>
                                         <button type="reset" class="btn btn-danger btn-sm">
                                             <i class="fa fa-ban"></i> Reset

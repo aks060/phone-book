@@ -43,6 +43,31 @@
     [type="search"]{
         border: 1px solid gray;
     }
+
+#myTable_paginate {
+    float: none;
+    text-align: center;
+}
+
+.sorting, .sorting_desc, .sorting_asc{
+    background-image: none !important; 
+}
+
+select{
+    margin-left: 10%;
+    border-radius: 2px;
+    display: block;
+width: 100%;
+padding: .375rem .75rem;
+font-size: 1rem;
+line-height: 1.5;
+color: #495057;
+background-color: #fff;
+background-clip: padding-box;
+border: 1px solid #ced4da;
+border-radius: .25rem;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 </style>
 </head>
 
