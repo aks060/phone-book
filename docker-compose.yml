@@ -1,9 +1,0 @@
-version: '3'
-services:
-  phonebook:
-    image: aks060/phonebook:latest
-    volumes:
-      - ./phone-book:/opt/lampp/htdocs
-    restart: always
-    ports:
-      - 8080:80
