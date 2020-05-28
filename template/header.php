@@ -39,7 +39,11 @@
     <script src="/static/vendor/bootstrap-4.1/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-
+<style type="text/css">
+    [type="search"]{
+        border: 1px solid gray;
+    }
+</style>
 </head>
 
 <body class="animsition">
@@ -68,23 +72,8 @@
                                 <i class="fas fa-tachometer-alt"></i>PhoneBook</a>
                         </li>
                         <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-copy"></i>Assessment</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="login.html">Data Science</a>
-                                </li>
-                                <li>
-                                    <a href="/dashboard/assessment/ml.html">Machine Learning</a>
-                                </li>
-                                <li>
-                                    <a href="/dashboard/assessment/nlp.html">NLP</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="/dashboard/assessment/cv.html">
-                                <i class="fa fa-file" aria-hidden="true"></i>CV</a>
+                            <a class="js-arrow" href="/addcontact">
+                                <i class="fas fa-copy"></i>Add Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -102,28 +91,13 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="/">
                                 <i class="fas fa-tachometer-alt"></i>PhoneBook</a>
                         </li>
                         <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-copy"></i>Assessment</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="/dashboard/assessment/ds.html">Data Science</a>
-                                </li>
-                                <li>
-                                    <a href="/dashboard/assessment/ml.html">Machine Learning</a>
-                                </li>
-                                <li>
-                                    <a href="/dashboard/assessment/nlp.html">NLP</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="/dashboard/assessment/cv.html">
-                                <i class="fa fa-file" aria-hidden="true"></i>CV</a>
+                            <a class="js-arrow" href="/addcontact">
+                                <i class="fas fa-copy"></i>Add Contact</a>
                         </li>
                     </ul>
                 </nav>

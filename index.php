@@ -35,10 +35,12 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 		{
 			echo '<script>alert("Please Enter Name and DOB");</script>';
 		}
+		elseif ($phonecount==0) {
+			echo '<script>alert("At least 1 phone required");</script>';
+		}
 		else
 		{
 			$flag=update($id, $name, $dob, $_POST['email'], $_POST['phone']);
-			echo 'update called';
 		}
 
 	}
@@ -182,7 +184,7 @@ if(isset($flag) && $flag==0)
                                             <?php
                                         	}
                                         	if(sizeof($emails)>0)
-                                        		echo '<center id="plusemail"><i class="fas fa-plus" onclick="addphone();"></i></center></div></div>';
+                                        		echo '<center id="plusemail"><i class="fas fa-plus" onclick="addemail();"></i></center></div></div>';
                                         	?>
 
 

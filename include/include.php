@@ -58,26 +58,24 @@ function update($id, $name, $dob, $emails, $phones)
 			$quer->bind_param('i', $id);
 			if($quer->execute())
 			{
-				return insert($name, $dob, $emails, $phones, 1, $id);
+				return insert($name, $dob, $emails, $phones, 1);
 			}
 			else
 			{
-				echo 'failed in update';
+				echo 'failed';
 			}
 		}
 	}
 }
 
 
-function insert($name, $dob, $emails, $phones, $update=0, $id)
+function insert($name, $dob, $emails, $phones, $update=0)
 {
 	global $db;
 	$error=0;
 	$name=htmlspecialchars($name);
 	$dob=htmlspecialchars($dob);
-		if(ctype_digit($id) || 1)
-		{
-			$quer=$db->prepare("INSERT INTO `contacts` (`name`, `dob`) VALUES (?, ?)");
+		$quer=$db->prepare("INSERT INTO `contacts` (`name`, `dob`) VALUES (?, ?)");
 			$quer->bind_param('ss', $name, $dob);
 			if($quer->execute())
 				{
@@ -86,20 +84,18 @@ function insert($name, $dob, $emails, $phones, $update=0, $id)
 						if(sizeof($emails)>0)
 						{
 							$count=0;
-							//echo "sizeof(): ".sizeof($emails);
 							$quer="INSERT INTO `email` (`contactid`, `email`) VALUES";
 							foreach ($emails as $key => $value) 
 							{
+								if($value=='')
+									continue;
 								$quer.=" ('".$id."', '".htmlspecialchars($value)."')";
 								if($count<sizeof($emails)-1)
 									$quer.=',';
 								$count+=1;
 							}
-							//echo '<br>'.$quer.'<br>';
 							if(!$db->query($quer))
 							{
-								echo "fail2";
-								//echo $db->error;
 								$error=1;
 							}
 							
@@ -111,15 +107,15 @@ function insert($name, $dob, $emails, $phones, $update=0, $id)
 							$quer="INSERT INTO `phone` (`contactid`, `phone`) VALUES";
 							foreach ($phones as $key => $value) 
 							{
+								if($value=='')
+									continue;
 								$quer.=" ('".$id."', '".htmlspecialchars($value)."')";
 								if($count<sizeof($phones)-1)
 									$quer.=',';
 								$count+=1;
 							}
-							echo '<br>'.$quer.'<br>';
 							if(!$db->query($quer))
 								{
-									echo 'error here';
 									$error=1;
 								}
 						}
@@ -127,19 +123,12 @@ function insert($name, $dob, $emails, $phones, $update=0, $id)
 				}
 				else
 				{
-					echo 'fail1';
 					$error=1;
 				}
-		}
-		else
-		{
-			echo 'not reached';
-		}
 
 	if($update==1 && $error==1)
 					{
 						$db->query("ROLLBACK");
-						echo 'ROLLBACK';
 					}
 	else
 	if($update==1 && $error==0)
@@ -149,7 +138,6 @@ function insert($name, $dob, $emails, $phones, $update=0, $id)
 		
 	if($error==0)
 		{
-			header('Location: /');
 			return 1;
 		}
 	else
