@@ -230,7 +230,7 @@ if(isset($flag) && $flag==0)
                             </div></center>
 </div>
 <center>
-<div class="col-lg-6">
+<div class="col-lg-9">
                                 <div class="user-data m-b-30">
                                     <h3 class="title-3 m-b-30">
                                         <i class="zmdi zmdi-account-calendar"></i>Contacts</h3>
