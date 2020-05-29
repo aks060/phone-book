@@ -320,7 +320,7 @@ function refresh(){
 	var rem=rows.length;
 	var count=1;
 	$('.pagination').html('');
-    rem=Math.floor(rem/(limit*2));
+    rem=Math.ceil(rem/(limit*2));
 	do{
 
 		if(curr==count)
