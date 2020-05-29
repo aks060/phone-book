@@ -299,7 +299,6 @@ $('#myTable').DataTable();
 
 function search(val)
 {
-	//alert($(val).val());
 	var txt=$(val).val();
     $.ajax({url: "/functions/getcontact.php?search="+txt, success: function(result){
     $("#list_contact").html(result);
@@ -316,7 +315,6 @@ function off() {
   window.location='/';
 }
 
-<script>
 	function addemail()
 {
 	var plus=$('#plusemail').html();
