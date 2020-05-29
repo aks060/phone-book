@@ -328,7 +328,6 @@ function addphone()
 	$('#plusphone').remove();
 	$('#phonelist').append(`<div class="input-group"><div class="input-group-addon"><i class="fa fa-phone"></i></div><input type="text" id="phone" name="phone[]" value="" placeholder="Phone" class="form-control"><div class="input-group-addon" onclick="$(this).parent().remove();"><i class="fas fa-times"></i></div></div><center id="plusphone">`+plus+'</center>');
 }
-</script>
 
 <?php
 if($show)
