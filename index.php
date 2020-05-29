@@ -249,7 +249,7 @@ if(isset($flag) && $flag==0)
                                     <div class="table-responsive table-data" style="height: auto;">
                                     	<form method="post">
                                     		<div class="input-group"><div class="input-group-btn"><button class="btn btn-primary"><i class="fa fa-search"></i> Search</button></div><input onkeyup="search($(this));" type="text" id="myTable_filter" name="input1-group2" placeholder="Name" class="form-control" aria-controls="myTable"></div>
-                                        <table class="table" id="myTable" onchange="refresh();">
+                                        <table class="table" id="myTable" onchange="updaterow();">
                                             <thead>
                                                 <tr>
                                             
@@ -290,6 +290,11 @@ if(isset($flag) && $flag==0)
 <script>
 var rows=$('#myTable').children('tbody').children('tr');
 
+function updaterow()
+{
+	rows=$('#myTable').children('tbody').children('tr');
+	refresh();
+}
 function pageitem(ele)
 {
 	try{
@@ -342,7 +347,7 @@ function refresh(){
   	var txt=$("#myTable_filter").val();
     $.ajax({url: "/functions/getcontact.php?search="+txt, success: function(result){
     $("#list_contact").html(result);
-    refresh();
+    //refresh();
   }});
   });
   //$("#myTable_filter").children('label').children('input').keyup();
