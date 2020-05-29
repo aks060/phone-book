@@ -8,9 +8,10 @@ function getcontacts($search)
 {
 	global $db;
 	$search=htmlspecialchars($search);
-	$quer=$db->prepare("SELECT * FROM contacts WHERE name LIKE ? ORDER BY name");
+	$quer=$db->prepare("SELECT * FROM contacts WHERE name LIKE ? OR id in (SELECT contactid FROM phone WHERE phone LIKE ? ) OR id in (SELECT contactid FROM email WHERE email LIKE ? ) ORDER BY name");
 	$search=$search.'%';
-	$quer->bind_param('s', $search);
+	$nsearch='%'.$search.'%';
+	$quer->bind_param('sss', $nsearch, $search, $search);
 	$quer->execute();
 	$get=$quer->get_result();
 	$contacts=array();
@@ -77,6 +78,8 @@ function insert($name, $dob, $emails, $phones, $update=0)
 	$error=0;
 	$name=htmlspecialchars($name);
 	$dob=htmlspecialchars($dob);
+	if($dob=='')
+		$dob=NULL;
 	if($update==0)
 	{
 		$db->query("SET autocommit = 0");

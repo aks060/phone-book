@@ -42,7 +42,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/template/header.php');
                                                     <label for="text-input" class=" form-control-label">DOB</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="date" id="text-input" name="dob" value="" placeholder="Date of Birth" class="form-control" required="">
+                                                    <input type="date" id="text-input" name="dob" value="" placeholder="Date of Birth" class="form-control">
                                                     <small class="form-text text-muted">Enter DOB</small>
                                                 </div>
                                             </div>

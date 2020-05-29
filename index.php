@@ -46,6 +46,18 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 	}
 }
 
+$page=1;
+$limit=4;
+if(isset($_GET['page']) && ctype_digit($_GET['page']))
+{
+	$page=$_GET['page'];
+}
+if(isset($_GET['limit']) && ctype_digit($_GET['limit']) && $_GET['limit']>=4)
+{
+	$limit=$_GET['limit'];
+}
+
+
 $show=0;
 $editid='';
 if(isset($_GET['edit']) && ctype_digit($_GET['edit']))
@@ -234,19 +246,10 @@ if(isset($flag) && $flag==0)
                                 <div class="user-data m-b-30">
                                     <h3 class="title-3 m-b-30">
                                         <i class="zmdi zmdi-account-calendar"></i>Contacts</h3>
-                                    <!-- <div class="col col-md-12">
-                                                    <div class="input-group">
-                                                        <div class="input-group-btn">
-                                                            <button class="btn btn-primary">
-                                                                <i class="fa fa-search"></i> Search
-                                                            </button>
-                                                        </div>
-                                                        <input type="text" id="search" name="input1-group2" placeholder="Search Name" class="form-control">
-                                                    </div>
-                                                </div> -->
                                     <div class="table-responsive table-data" style="height: auto;">
                                     	<form method="post">
-                                        <table class="table" id="myTable">
+                                    		<div class="input-group"><div class="input-group-btn"><button class="btn btn-primary"><i class="fa fa-search"></i> Search</button></div><input onkeyup="search($(this));" type="text" id="myTable_filter" name="input1-group2" placeholder="Name" class="form-control" aria-controls="myTable"></div>
+                                        <table class="table" id="myTable" onchange="refresh();">
                                             <thead>
                                                 <tr>
                                             
@@ -260,6 +263,22 @@ if(isset($flag) && $flag==0)
                                                     <?php echo getcontacts(''); ?>                                            
                                             </tbody>
                                         </table>
+                                        <div class="dataTables_paginate paging_simple_numbers" id="myTable_paginate"><div class="row" style="width:100%;" id="rwid"><div class="col-md-2" id="tmpid"><select name="myTable_length" aria-controls="myTable" class="" onchange="refresh();"><option value="4">4</option><option value="10">10</option><option value="20">20</option><option value="50">50</option></select></div>
+
+                                        <div class="col-md-10" id="selectid" style="text-align: center;"><nav aria-label="...">
+  <ul class="pagination">
+
+    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">
+        2
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+  </ul>
+</nav></div></div></div>
+                                        <div style="width: 200px; float: right"><a href="/addcontact"><i class="fas fa-user-plus" style="font-size: 2.5em;"></i></a></div>
                                     </form>
                                     </div>
                                 </div>
@@ -269,29 +288,89 @@ if(isset($flag) && $flag==0)
 <!--Footer-->
 
 <script>
+const rows=$('#myTable').children('tbody').children('tr');
+
+function pageitem(ele)
+{
+	try{
+		var num=parseInt($(ele).children('a').html(), 10);
+		$('.page-item.active').removeClass('active');
+		$(ele).addClass('active');
+		var curr=parseInt($('.page-item.active').children('a').html(), 10);
+		refresh();
+	}
+	catch (e)
+	{
+		alert(e);
+	}
+}
+
+function refresh(){
+	$('#myTable').children('tbody').html('');
+	var bod=$('#myTable').children('tbody');
+	var curr=parseInt($('.page-item.active').children('a').html(), 10);
+	var limit=parseInt($('#tmpid').children('select').val(), 10);
+	var i=(curr-1)*limit*2;
+	var upper=(curr*limit)*2;
+	var rem=rows.length;
+	var count=1;
+	$('.pagination').html('');
+    rem=Math.floor(rem/(limit*2));
+	do{
+
+		if(curr==count)
+		{
+			$('.pagination').append(`<li class="page-item active" ><a class="page-link" href="#">`+count+`</a></li>`);
+		}
+		else
+			$('.pagination').append(`<li class="page-item" onclick="pageitem($(this));"><a class="page-link" href="#">`+count+`</a></li>`);
+		count++;
+		rem-=1;
+		console.log(rem);
+	}while(rem>0);
+	for(i; i<(rows.length*2) && i<upper; i++)
+	{
+		$(bod).append(rows[i]);
+	}
+
+}
+
+
 	$(document).ready(function(){
-$('#myTable').DataTable();
+//$('#myTable').DataTable();
   $("#myTable_filter").keyup(function(){
   	var txt=$("#myTable_filter").val();
     $.ajax({url: "/functions/getcontact.php?search="+txt, success: function(result){
     $("#list_contact").html(result);
-    $('#myTable').DataTable();
+    refresh();
   }});
   });
-  $("#myTable_filter").children('label').children('input').keyup();
+  //$("#myTable_filter").children('label').children('input').keyup();
 
-  $("#myTable_info").remove();
-  var sele=$('#myTable_length').children('label').children('select');
-  $('#myTable_length').children('label').remove();
-  var select=$('#myTable_paginate').html();
-  $('#myTable_paginate').html('');
-  $('#myTable_paginate').prepend('<div class="row" style="width:100%;" id="rwid"><div class="col-md-2" id="tmpid"></div></div>');
-  $('#tmpid').html(sele);
-  $('#rwid').append('<div class="col-md-10" id="selectid"></div>');
-  $('#selectid').html(select);
+  //$("#myTable_info").remove();
+  //var sele=$('#myTable_length').children('label').children('select');
+  //$('#myTable_length').children('label').remove();
+  //var select=$('#myTable_paginate').html();
+  // $('#myTable_paginate').html('');
+  // $('#myTable_paginate').prepend('<div class="row" style="width:100%;" id="rwid"><div class="col-md-2" id="tmpid"></div></div>');
+  // $('#tmpid').html(sele);
+  // $('#rwid').append('<div class="col-md-10" id="selectid"></div>');
+  // $('#selectid').html(select);
 
-  $('#myTable_filter').replaceWith(`<div class="input-group"><div class="input-group-btn"><button class="btn btn-primary"><i class="fa fa-search"></i> Search</button></div><input onkeyup="search($(this));" type="text" id="myTable_filter" name="input1-group2" placeholder="Name" class="form-control" aria-controls="myTable"></div>`);
+  // $('#myTable_filter').replaceWith(`<div class="input-group"><div class="input-group-btn"><button class="btn btn-primary"><i class="fa fa-search"></i> Search</button></div><input onkeyup="search($(this));" type="text" id="myTable_filter" name="input1-group2" placeholder="Name" class="form-control" aria-controls="myTable"></div>`);
+  refresh();
+  var elems=$('.paginate_button');
+  for(var i=0; i<elems.length; i++)
+  {
+  	$(elems[i]).attr('href', '#');
+  }
+
+  $('#tmpid').children('select').attr('onchange', 'refresh();');
 });
+
+
+
+
 
 </script>
 
