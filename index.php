@@ -263,7 +263,7 @@ if(isset($flag) && $flag==0)
                                                     <?php echo getcontacts(''); ?>                                            
                                             </tbody>
                                         </table>
-                                        <div class="dataTables_paginate paging_simple_numbers" id="myTable_paginate"><div class="row" style="width:100%;" id="rwid"><div class="col-md-2" id="tmpid"><select name="myTable_length" aria-controls="myTable" class="" onchange="refresh();"><option value="4">4</option><option value="10">10</option><option value="20">20</option><option value="50">50</option></select></div>
+                                        <div class="dataTables_paginate paging_simple_numbers" id="myTable_paginate"><div class="row" style="width:100%;" id="rwid"><div class="col-md-2" id="tmpid"><select name="myTable_length" aria-controls="myTable" class="" onchange="refresh();"><option value="4" selected>4</option><option value="10">10</option><option value="20">20</option><option value="50">50</option></select></div>
 
                                         <div class="col-md-10" id="selectid" style="text-align: center;"><nav aria-label="...">
   <ul class="pagination">
