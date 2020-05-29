@@ -9,7 +9,7 @@ function getcontacts($search)
 	global $db;
 	$search=htmlspecialchars($search);
 	$quer=$db->prepare("SELECT * FROM contacts WHERE name LIKE ? ORDER BY name");
-	$search='%'.$search.'%';
+	$search=$search.'%';
 	$quer->bind_param('s', $search);
 	$quer->execute();
 	$get=$quer->get_result();
