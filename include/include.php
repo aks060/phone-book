@@ -91,17 +91,19 @@ function insert($name, $dob, $emails, $phones, $update=0)
 						if(sizeof($emails)>0)
 						{
 							$count=0;
+							$skip=1;
 							$quer="INSERT INTO `email` (`contactid`, `email`) VALUES";
 							foreach ($emails as $key => $value) 
 							{
 								if($value=='')
 									continue;
 								$quer.=" ('".$id."', '".htmlspecialchars($value)."')";
+								$skip=0;
 								if($count<sizeof($emails)-1)
 									$quer.=',';
 								$count+=1;
 							}
-							if(!$db->query($quer))
+							if($skip==0 && !$db->query($quer))
 							{
 								echo js_start.'Sorry some error occured'.js_end;
 								$error=1;
@@ -112,12 +114,14 @@ function insert($name, $dob, $emails, $phones, $update=0)
 						if(sizeof($phones)>0)
 						{
 							$count=0;
+							$skip=1;
 							$quer="INSERT INTO `phone` (`contactid`, `phone`) VALUES";
 							foreach ($phones as $key => $value) 
 							{
 								if($value=='')
 									continue;
 								$quer.=" ('".$id."', '".htmlspecialchars($value)."')";
+								$skip=0;
 								if($count<sizeof($phones)-1)
 									$quer.=',';
 								$count+=1;
