@@ -55,7 +55,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/template/header.php');
                                                     </div>
                                                     <input type="email" id="email" name="email[]" value="" placeholder="Email" class="form-control">
                                                 </div>
-                                            <center id="plusemail"><i class="fas fa-plus" onclick="addemail();"></i></center></div></div>
+                                            <center id="plusemail"><i class="fas fa-plus" id="addemail" onclick="addemail();"></i></center></div></div>
                                         	
 
 
@@ -68,7 +68,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/template/header.php');
                                                     </div>
                                                     <input type="text" id="phone" name="phone[]" value="" placeholder="Phone" class="form-control" required="">
                                                 </div>
-                                            <center id="plusphone"><i class="fas fa-plus" onclick="addphone();"></i></center></div></div>
+                                            <center id="plusphone"><i class="fas fa-plus" id="addphone" onclick="addphone();"></i></center></div></div>
                                         	
                                             
                                         
@@ -90,16 +90,16 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/template/header.php');
 <script>
 	function addemail()
 {
-	var plus=document.getElementById('plusemail').innerHTML;
-	document.getElementById('plusemail').remove();
-	document.getElementById('emaillist').innerHTML+=`<div class="input-group"><div class="input-group-addon"><i class="fa fa-envelope"></i></div><input type="email" id="email" name="email[]" value="" placeholder="Email" class="form-control"><div class="input-group-addon" onclick="$(this).parent().remove();"><i class="fas fa-times"></i></div></div><center id="plusemail">`+plus+'</center>';
+	var plus=$('#plusemail').html();
+	$('#plusemail').remove();
+	$('#emaillist').append(`<div class="input-group"><div class="input-group-addon"><i class="fa fa-envelope"></i></div><input type="email" id="email" name="email[]" value="" placeholder="Email" class="form-control"><div class="input-group-addon" onclick="$(this).parent().remove();"><i class="fas fa-times"></i></div></div><center id="plusemail">`+plus+'</center>');
 }
 
 function addphone()
 {
-	var plus=document.getElementById('plusphone').innerHTML;
-	document.getElementById('plusphone').remove();
-	document.getElementById('phonelist').innerHTML+=`<div class="input-group"><div class="input-group-addon"><i class="fa fa-phone"></i></div><input type="text" id="phone" name="phone[]" value="" placeholder="Phone" class="form-control"><div class="input-group-addon" onclick="$(this).parent().remove();"><i class="fas fa-times"></i></div></div><center id="plusphone">`+plus+'</center>';
+	var plus=$('#plusphone').html();
+	$('#plusphone').remove();
+	$('#phonelist').append(`<div class="input-group"><div class="input-group-addon"><i class="fa fa-phone"></i></div><input type="text" id="phone" name="phone[]" value="" placeholder="Phone" class="form-control"><div class="input-group-addon" onclick="$(this).parent().remove();"><i class="fas fa-times"></i></div></div><center id="plusphone">`+plus+'</center>');
 }
 </script>
 <?php
