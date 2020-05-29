@@ -1,5 +1,7 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/include/dbconn.php');
+define('js_start', '<script>alert("');
+define('js_end', '");</script>');
 
 
 function getcontacts($search)
@@ -75,6 +77,11 @@ function insert($name, $dob, $emails, $phones, $update=0)
 	$error=0;
 	$name=htmlspecialchars($name);
 	$dob=htmlspecialchars($dob);
+	if($update==0)
+	{
+		$db->query("SET autocommit = 0");
+		$db->query("START TRANSACTION");
+	}
 		$quer=$db->prepare("INSERT INTO `contacts` (`name`, `dob`) VALUES (?, ?)");
 			$quer->bind_param('ss', $name, $dob);
 			if($quer->execute())
@@ -96,6 +103,7 @@ function insert($name, $dob, $emails, $phones, $update=0)
 							}
 							if(!$db->query($quer))
 							{
+								echo js_start.'Sorry some error occured'.js_end;
 								$error=1;
 							}
 							
@@ -116,22 +124,29 @@ function insert($name, $dob, $emails, $phones, $update=0)
 							}
 							if(!$db->query($quer))
 								{
+									echo js_start.'Sorry some error occured'.js_end;
 									$error=1;
 								}
+						}
+						else
+						{
+							$error=1;
+							echo js_start.'Min one phone number is required'.js_end;;
 						}
 					
 				}
 				else
 				{
+					echo js_start.'Sorry some error occured'.js_end;
 					$error=1;
 				}
 
-	if($update==1 && $error==1)
+	if($error==1)
 					{
 						$db->query("ROLLBACK");
 					}
 	else
-	if($update==1 && $error==0)
+	if($error==0)
 			$db->query("COMMIT");
 
 	$db->query("SET autocommit = 1");
