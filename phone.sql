@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 28, 2020 at 08:49 AM
+-- Generation Time: May 29, 2020 at 06:11 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -30,8 +30,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `contacts` (
   `id` int(11) NOT NULL,
   `name` varchar(120) NOT NULL,
-  `dob` date NOT NULL
+  `dob` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 -- --------------------------------------------------------
 
@@ -45,6 +46,7 @@ CREATE TABLE `email` (
   `email` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
 -- --------------------------------------------------------
 
 --
@@ -58,6 +60,9 @@ CREATE TABLE `phone` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `phone`
+--
+
 -- Indexes for dumped tables
 --
 
@@ -79,6 +84,7 @@ ALTER TABLE `email`
 --
 ALTER TABLE `phone`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `phone_2` (`phone`),
   ADD KEY `phone` (`contactid`);
 
 --
@@ -89,19 +95,19 @@ ALTER TABLE `phone`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `email`
 --
 ALTER TABLE `email`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `phone`
 --
 ALTER TABLE `phone`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Constraints for dumped tables
