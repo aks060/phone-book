@@ -288,7 +288,7 @@ if(isset($flag) && $flag==0)
 <!--Footer-->
 
 <script>
-const rows=$('#myTable').children('tbody').children('tr');
+var rows=$('#myTable').children('tbody').children('tr');
 
 function pageitem(ele)
 {
